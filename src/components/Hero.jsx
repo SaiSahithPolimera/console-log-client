@@ -10,7 +10,7 @@ const Hero = () => {
         { Icon: <PostgresIcon />, Name: "PostgreSQL" },
         { Icon: <MySQLIcon />, Name: "MySQL" },
         { Icon: <JestIcon />, Name: "Jest" },
-        { Icon: <CppIcon /> },
+        { Icon: <CppIcon />, Name: "C++" },
         { Icon: <JavaIcon />, Name: "Java" }
     ]
     return (
@@ -23,7 +23,7 @@ const Hero = () => {
                 <h1 className="text-xl">My tech stack</h1>
                 <div className="grid grid-cols-4 items-start gap-3 w-3/5">
                     {
-                        technologies.map((technology) => <span key={technology} className="flex items-center gap-2 hover:cursor-pointer"> <div> {technology.Icon}</div> <div> {technology.Name}</div></span>)
+                        technologies.map((technology) => <span key={technology.Name} className="flex items-center gap-2 hover:cursor-pointer"> <div> {technology.Icon}</div> <div> {technology.Name}</div></span>)
                     }
                 </div>
             </div>
