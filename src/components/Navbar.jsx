@@ -6,7 +6,7 @@ const Navbar = () => {
   const { selection, options, setSelection } = useContext(SelectionProvider);
 
   return (
-    <nav className="flex justify-between p-1">
+    <nav className="flex justify-between">
       <header className="tracking-widest hover:cursor-pointer flex items-center flex-row gap-1">
         <h1 className="font-semibold text-2xl first-letter:text-4xl">
           CONSOLE LOG
@@ -19,9 +19,8 @@ const Navbar = () => {
           <li
             key={option}
             onClick={() => setSelection(option)}
-            className={`text-xl p-1 transition ease-in-out duration-150 hover:cursor-pointer ${
-              option === selection ? "text-green-800" : ""
-            }`}
+            className={`text-xl p-1 transition ease-in-out duration-150 hover:cursor-pointer ${option === selection ? "text-green-800" : ""
+              }`}
           >
             {option}
           </li>

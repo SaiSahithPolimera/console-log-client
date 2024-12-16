@@ -185,6 +185,18 @@ export function JavaIcon() {
 
 export function LoadingIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeDasharray={16} strokeDashoffset={16} strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"></animate><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"></animateTransform></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" className="self-center" width={24} height={24} viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeDasharray={16} strokeDashoffset={16} strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="16;0"></animate><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"></animateTransform></path></svg>
+  )
+}
+
+export function LikeIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 32 32"><g fill="none"><path fill="#ff6aa0" d="M6 5.998c4.665-2.332 8.5.5 10 2.5c1.5-2 5.336-4.832 10-2.5c6 3 4.5 10.5 0 15c-2.195 2.196-6.062 6.063-8.89 8.214a1.764 1.764 0 0 1-2.187-.041C12.33 27.078 8.165 23.163 6 20.998c-4.5-4.5-6-12 0-15"></path><path fill="#e25c82" d="M16 8.498v3.05c1.27-2.685 4.426-6.27 9.658-5.713c-4.51-2.03-8.195.712-9.658 2.663m-4.054-2.963c-1.684-.587-3.72-.65-5.946.463c-6 3-4.5 10.5 0 15c2.165 2.165 6.33 6.08 8.923 8.173a1.764 1.764 0 0 0 2.186.04q.382-.29.786-.618c-2.855-2.143-6.861-5.519-9.036-7.463c-4.956-4.43-6.609-11.814 0-14.768a9.7 9.7 0 0 1 3.087-.827"></path><ellipse cx={23.477} cy={12.592} fill="#ff8fc1" rx={2.836} ry={4.781} transform="rotate(30 23.477 12.592)"></ellipse></g></svg>
+  )
+}
+
+export function TagsIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={30} height={30} viewBox="0 0 24 24"><g fill="#fdf4f4"><path d="M9.172 5a3 3 0 0 1 2.121.879l5.71 5.71a3.41 3.41 0 0 1 0 4.822l-3.592 3.592a3.41 3.41 0 0 1-4.822 0l-5.71-5.71A3 3 0 0 1 2 12.172V8a3 3 0 0 1 3-3zM7 9h-.01A1 1 0 1 0 7 11a1 1 0 0 0 0-2"></path><path d="M14.293 5.293a1 1 0 0 1 1.414 0L20.3 9.885a5.82 5.82 0 0 1 0 8.23l-1.592 1.592a1 1 0 0 1-1.414-1.414l1.592-1.592a3.82 3.82 0 0 0 0-5.402l-4.592-4.592a1 1 0 0 1 0-1.414"></path></g></svg>
   )
 }
