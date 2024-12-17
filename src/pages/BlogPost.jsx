@@ -29,7 +29,7 @@ const BlogPost = () => {
     fetchPostData(title);
   })
   return (
-    <section className="min-h-screen gap-10 px-64 items-start flex flex-col bg-black text-white p-4 font-sans">
+    <section className="min-h-screen gap-10 lg:px-64 items-start flex flex-col bg-black text-white p-4 font-sans">
       <h1 className='text-white text-xl self-start font-bold'>{postData.title}</h1>
       <div className='text-white text-base'>{postData.content}</div>
       <div className='flex gap-3 items-center'>

@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <SelectionProvider.Provider value={{ selection, setSelection, options }}>
-      <section className="min-h-screen gap-10 flex flex-col bg-black p-4 font-sans text-slate-300 px-64">
+      <section className="min-h-screen gap-10 flex flex-col bg-black p-4 font-sans text-slate-300 lg:px-64">
         <Navbar />
         {
           selection === "Blog" ?
@@ -51,7 +51,7 @@ const Home = () => {
                   postData.map((post) => (
                     <div key={post.id} className="flex flex-col gap-12 w-full">
                       <BlogCard blogData={post} />
-                      <hr className="w-full border-green-800 last-of-type:hidden  " />
+                      <hr className="w-full border-green-800 last-of-type:hidden"/>
                     </div>
                   ))}
               </div>

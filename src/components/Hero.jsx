@@ -21,7 +21,7 @@ const Hero = () => {
             </div>
             <div className="p-1 flex flex-col gap-4 items-center">
                 <h1 className="text-xl self-start">My tech stack</h1>
-                <div className="self-start grid grid-cols-4 items-start gap-3 w-3/5">
+                <div className="self-start grid lg:grid-cols-4 grid-cols-3 items-start gap-2 lg:w-3/5">
                     {
                         technologies.map((technology) => <span key={technology.Name} className="flex items-center gap-2 text-sm text-slate-300 hover:cursor-pointer"> <div> {technology.Icon}</div> <div> {technology.Name}</div></span>)
                     }
