@@ -24,6 +24,9 @@ const Login = () => {
                 .then(response => response.json())
                 .then((res) => {
                     toast.dismiss(toastID);
+                    if(res.errors) {
+                        setErrors(res.errors)
+                    }
                     if (res.success === false) {
                         setErrors(res);
                     }

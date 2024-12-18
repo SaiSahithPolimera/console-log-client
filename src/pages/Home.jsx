@@ -11,6 +11,7 @@ const Home = () => {
   const URL = import.meta.env.VITE_BASE_URL;
   const [selection, setSelection] = useState(options[0]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   const [postData, setPostData] = useState([]);
   const [tags, setTags] = useState([]);
   useEffect(() => {
@@ -19,6 +20,9 @@ const Home = () => {
         .then((res) => res.json())
         .then((res) => {
           setPostData(res);
+          if (res.error) {
+            setError(res.error);
+          }
           setIsLoading(false);
         })
         .catch((err) => console.error(err));
@@ -47,11 +51,14 @@ const Home = () => {
               <h3 className="text-xl text-white font-bold">Latest</h3>
               <div className=" flex flex-col gap-8">
                 {isLoading && <LoadingIcon />}
-                {postData &&
+                {
+                  error && <span className="text-red-500 bg-stone-200 px-2 py-2 rounded-lg self-center"> 😶 {error}</span>
+                }
+                {postData.length > 0 &&
                   postData.map((post) => (
                     <div key={post.id} className="flex flex-col gap-12 w-full">
                       <BlogCard blogData={post} />
-                      <hr className="w-full border-green-800 last-of-type:hidden"/>
+                      <hr className="w-full border-green-800 last-of-type:hidden" />
                     </div>
                   ))}
               </div>
