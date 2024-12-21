@@ -31,7 +31,7 @@ const BlogPost = () => {
     fetchPostData();
   }, [fetchPostData]);
   const likePost = async () => {
-    await fetch(`${URL}/post/${title}/like`, { method: 'POST', credentials: 'include' }).then((res) => res.json()).then(async (data) => {      
+    await fetch(`${URL}/post/${title}/like`, { method: 'POST', credentials: 'include' }).then((res) => res.json()).then(async (data) => {
       if (data.response.success === true) {
         await fetchPostData();
       }
