@@ -30,7 +30,20 @@ const BlogPost = () => {
   useEffect(() => {
     fetchPostData();
   }, [fetchPostData]);
+  const likePost = async () => {
+    await fetch(`${URL}/post/${title}/like`, { method: 'POST', credentials: 'include' }).then((res) => res.json()).then(async (data) => {      
+      if (data.response.success === true) {
+        await fetchPostData();
+      }
+      else {
+        toast.error("Please login to like the post!");
+      }
+    }).catch((err) => {
+      toast.error("Error occurred try again!")
+      console.error(err);
+    })
 
+  }
   const addComment = async () => {
     if (commentRef.current.value !== "") {
       const toastID = toast.loading("Adding comment");
@@ -74,9 +87,8 @@ const BlogPost = () => {
       </div>
       {
         postData.comments ?
-          <Comments comments={postData.comments} commentRef={commentRef} addComment={addComment} likeCount={postData.likeCount} />
-          :
-          isLoading && <LoadingIcon />
+          <Comments comments={postData.comments} commentRef={commentRef} addComment={addComment} likeCount={postData.likeCount} likePost={likePost} />
+          : isLoading && <LoadingIcon />
       }
       <div>
       </div>
