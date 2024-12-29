@@ -2,8 +2,11 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom'
 import Comments from '../components/Comments';
 import toast from "react-hot-toast"
+import parse from "html-react-parser"
 import { LoadingIcon } from '../components/Icons';
 import Tags from '../components/Tags';
+import DOMPurify from 'dompurify';
+import { useMemo } from 'react';
 
 const BlogPost = () => {
   const { title } = useParams();
@@ -11,7 +14,9 @@ const BlogPost = () => {
   const [postData, setPostData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const commentRef = useRef("");
-
+  const sanitizedContent = useMemo(() => ({
+    __html: DOMPurify.sanitize(postData.content)
+  }), [postData.content]);
   const fetchPostData = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -52,7 +57,6 @@ const BlogPost = () => {
         const fetchURL = `${URL}/posts/${title}/comment?comment=${commentRef.current.value}`;
         const response = await fetch(fetchURL, { method: 'GET', credentials: 'include' });
         const data = await response.json();
-        console.log(data);
         if (data.message) {
           toast.dismiss(toastID);
           toast.error(data.message);
@@ -78,7 +82,7 @@ const BlogPost = () => {
   return (
     <section className="min-h-screen gap-10 lg:px-64 items-start flex flex-col bg-black text-white p-4 font-sans">
       <h1 className='text-white text-xl self-start font-bold'>{postData.title}</h1>
-      <div className='text-white text-base'>{postData.content}</div>
+      <div className='text-white text-base'>{parse(sanitizedContent.__html)}</div>
       <div className='flex gap-3 items-center'>
         {
           postData.tags &&

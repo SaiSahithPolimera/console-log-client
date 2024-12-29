@@ -1,4 +1,6 @@
 import { formatDistance, subDays } from 'date-fns'
+import parse from "html-react-parser"
+
 import { Link } from 'react-router-dom';
 
 const BlogCard = ({ blogData }) => {
@@ -12,7 +14,7 @@ const BlogCard = ({ blogData }) => {
                 </Link>
                 <span className="text-sm font-light  text-slate-300">{date}</span>
             </div>
-            <div className="text-md text-slate-300 line-clamp-4">{blogData.content}</div>
+            <div className="text-md text-slate-300 line-clamp-4">{parse(blogData.content)}</div>
         </div>
     )
 }
