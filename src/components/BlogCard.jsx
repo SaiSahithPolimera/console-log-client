@@ -10,7 +10,7 @@ const BlogCard = ({ blogData }) => {
         <div className="flex flex-col gap-2 w-full ">
             <div className='flex items-center justify-between'>
                 <Link to={/posts/ + blogData.title.split(" ").join("-")}>
-                    <h1 className="text-2xl text-slate-200 font-bold hover:cursor-pointer">{blogData.title}</h1>
+                    <h1 className="lg:text-2xl text-xl text-slate-200 font-bold hover:cursor-pointer">{blogData.title}</h1>
                 </Link>
                 <span className="text-sm font-light  text-slate-300">{date}</span>
             </div>

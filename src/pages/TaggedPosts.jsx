@@ -33,7 +33,7 @@ const TaggedPosts = () => {
         fetchPostsByTagName();
     }, [tag])
     return (
-        <section className='bg-black min-h-screen flex flex-col gap-4 py-4 lg:px-64'>
+        <section className='bg-black min-h-screen flex flex-col gap-4 py-4 lg:px-64 px-2'>
             <h3 className="text-xl text-white font-bold">Posts tagged with: #{tag}</h3>
             <div className=" flex flex-col gap-4">
                 {isLoading && <span className="self-center text-white"><LoadingIcon /></span>}
