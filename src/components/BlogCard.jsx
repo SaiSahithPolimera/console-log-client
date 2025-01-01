@@ -14,7 +14,7 @@ const BlogCard = ({ blogData }) => {
                 </Link>
                 <span className="text-sm font-light  text-slate-300">{date}</span>
             </div>
-            <div className="text-md text-slate-300 line-clamp-4">{parse(blogData.content)}</div>
+            <div className="text-md text-slate-300 line-clamp-3">{parse(blogData.content)}</div>
         </div>
     )
 }

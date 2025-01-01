@@ -55,7 +55,7 @@ const BlogPost = () => {
       try {
         const URL = import.meta.env.VITE_BASE_URL;
         const fetchURL = `${URL}/posts/${title}/comment?comment=${commentRef.current.value}`;
-        const response = await fetch(fetchURL, { method: 'GET', credentials: 'include' });
+        const response = await fetch(fetchURL, { method: 'POST', credentials: 'include' });
         const data = await response.json();
         if (data.message) {
           toast.dismiss(toastID);
