@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import Comments from '../components/Comments';
 import toast from "react-hot-toast"
@@ -7,34 +7,25 @@ import { LoadingIcon } from '../components/Icons';
 import Tags from '../components/Tags';
 import DOMPurify from 'dompurify';
 import { useMemo } from 'react';
+import { fetchPostData } from '../api/posts';
+import { useQuery } from '@tanstack/react-query';
 
 const BlogPost = () => {
+
   const { title } = useParams();
-  const URL = import.meta.env.VITE_BASE_URL;
-  const [postData, setPostData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+
   const commentRef = useRef("");
+
+  const { data: postData, isLoading } = useQuery({
+    queryKey: ["postData", title],
+    queryFn: () => fetchPostData(title),
+  })
+
   const sanitizedContent = useMemo(() => ({
-    __html: DOMPurify.sanitize(postData.content)
-  }), [postData.content]);
-  const fetchPostData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${URL}/post/${title}`);
-      const data = await response.json();
-      if (data.post.success) {
-        setPostData(data.post.post);
-        setIsLoading(false);
-      }
-    }
-    catch (err) {
-      console.error(err);
-      setIsLoading(false);
-    }
-  }, [title, URL])
-  useEffect(() => {
-    fetchPostData();
-  }, [fetchPostData]);
+    __html: DOMPurify.sanitize(postData?.post.content)
+  }), [postData?.post]);
+
+
   const likePost = async () => {
     await fetch(`${URL}/post/${title}/like`, { method: 'POST', credentials: 'include' }).then((res) => res.json()).then(async (data) => {
       if (data.response.success === true) {
@@ -49,6 +40,7 @@ const BlogPost = () => {
     })
 
   }
+
   const addComment = async () => {
     if (commentRef.current.value !== "") {
       const toastID = toast.loading("Adding comment");
@@ -79,22 +71,23 @@ const BlogPost = () => {
       toast.error("Please type something")
     }
   }
+
+  if (isLoading) {
+    return <section className="min-h-screen justify-center items-center flex text-white bg-black">
+      <LoadingIcon />
+    </section>
+  }
+
   return (
     <section className="min-h-screen gap-10 lg:px-64 items-start flex flex-col bg-black text-white p-4 font-sans">
-      <h1 className='text-white text-xl self-start font-bold'>{postData.title}</h1>
+      <h1 className='text-white text-xl self-start font-bold'>{postData.post.title}</h1>
       <div className='text-white text-base'>{parse(sanitizedContent.__html)}</div>
-      <div className='flex gap-3 items-center'>
+      <div className='flex gap-3 flex-col w-full items-start'>
         {
-          postData.tags &&
-          <Tags tags={postData.tags} />
+          postData.post.tags &&
+          <Tags tags={postData.post.tags} />
         }
-      </div>
-      {
-        postData.comments ?
-          <Comments comments={postData.comments} commentRef={commentRef} addComment={addComment} likeCount={postData.likeCount} likePost={likePost} />
-          : isLoading && <LoadingIcon />
-      }
-      <div>
+        <Comments comments={postData.post.comments} commentRef={commentRef} addComment={addComment} likeCount={postData.post.likeCount} likePost={likePost} />
       </div>
     </section>
   )

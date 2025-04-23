@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.74.4",
     "date-fns": "^4.1.0",
     "dompurify": "^3.2.3",
     "html-react-parser": "^5.2.1",

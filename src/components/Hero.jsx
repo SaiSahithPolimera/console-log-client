@@ -1,4 +1,4 @@
-import { ReactIcon, TailwindIcon, ExpressJSIcon, NodeJSIcon, ArduinoIcon, PrismaIcon, PostgresIcon, MySQLIcon, JestIcon, CppIcon, JavaIcon } from "./Icons";
+import { ReactIcon, TailwindIcon, ExpressJSIcon, NodeJSIcon, ArduinoIcon, PrismaIcon, PostgresIcon, MySQLIcon, JestIcon, CppIcon, JavaIcon, TypeScriptIcon } from "./Icons";
 const Hero = () => {
     const technologies = [
         { Icon: <ReactIcon />, Name: "React" },
@@ -11,7 +11,8 @@ const Hero = () => {
         { Icon: <MySQLIcon />, Name: "MySQL" },
         { Icon: <JestIcon />, Name: "Jest" },
         { Icon: <CppIcon />, Name: "C++" },
-        { Icon: <JavaIcon />, Name: "Java" }
+        { Icon: <JavaIcon />, Name: "Java" }, 
+        {Icon: <TypeScriptIcon/>, Name: "TypeScript"}
     ]
     return (
         <section className="flex flex-col gap-4">

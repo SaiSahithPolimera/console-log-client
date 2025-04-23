@@ -1,19 +1,29 @@
-import { BracketsRounded, LoginIcon } from "./Icons";
+import { BracketsRounded, CloseIcon, NavIcon } from "./Icons";
 import { SelectionProvider } from "../pages/Home";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { selection, options, setSelection } = useContext(SelectionProvider);
+  const [active, setActive] = useState(false);
   return (
-    <nav className="flex justify-between items-center">
+    <nav className="flex  justify-between items-center">
       <header className="tracking-widest hover:cursor-pointer flex items-center flex-row gap-1">
         <h1 className="font-semibold text-2xl first-letter:text-4xl">
           CONSOLE LOG
         </h1>
         <BracketsRounded />
       </header>
-      <ul className="flex gap-3 items-center">
+      <button className="md:hidden" onClick={() => setActive(!active)}>
+        <NavIcon />
+      </button>
+      <ul
+        className={`md:flex gap-3 md:items-center items-start md:p-0 p-8 transition-all duration-300 
+            ${active ? 'absolute top-0 left-0 w-screen h-screen bg-black text-white flex flex-col justify-start items-start ' : 'hidden'}`}
+      >
+        <button className={`${active ? 'block' : 'hidden'}`} onClick={() => setActive(!active)}>
+          < CloseIcon />
+        </button>
         {options.map((option) => (
           <li
             key={option}
@@ -24,10 +34,10 @@ const Navbar = () => {
             {option}
           </li>
         ))}
-        <Link to={"/login"} className="mt-1 text-xl" >
-          <LoginIcon /></Link>
+        <Link to={"/login"} className="text-xl flex gap-2 items-center text-white/80" >
+          Login</Link>
       </ul>
-    </nav>
+    </nav >
   );
 };
 

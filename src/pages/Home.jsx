@@ -1,44 +1,29 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 import Navbar from "../components/NavBar";
 import Hero from "../components/Hero";
 import { LoadingIcon } from "../components/Icons";
 import BlogCard from "../components/BlogCard";
 import Tags from "../components/Tags";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPosts, fetchTagData } from "../api/posts";
 
 export const SelectionProvider = createContext();
+
 const Home = () => {
+
   const options = ["Blog", "Tags"];
-  const URL = import.meta.env.VITE_BASE_URL;
+
   const [selection, setSelection] = useState(options[0]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [postData, setPostData] = useState([]);
-  const [tags, setTags] = useState([]);
-  useEffect(() => {
-    const fetchPostData = () => {
-      fetch(URL)
-        .then((res) => res.json())
-        .then((res) => {
-          setPostData(res);
-          if (res.error) {
-            setError(res.error);
-          }
-          setIsLoading(false);
-        })
-        .catch((err) => console.error(err));
-    };
-    const fetchTagData = () => {
-      fetch(`${URL}/tags`)
-        .then((res) => res.json())
-        .then((res) => {
-          setTags(res.tags);
-          setIsLoading(false);
-        })
-        .catch((err) => console.error(err));
-    }
-    fetchPostData();
-    fetchTagData();
-  }, [URL]);
+
+  const { data: postData, error, isLoading } = useQuery({
+    queryKey: ["PostsData"],
+    queryFn: fetchPosts
+  })
+
+  const { data: tags } = useQuery({
+    queryKey: ["TagData"],
+    queryFn: fetchTagData
+  })
 
   return (
     <SelectionProvider.Provider value={{ selection, setSelection, options }}>
@@ -48,13 +33,13 @@ const Home = () => {
           selection === "Blog" ?
             <>
               <Hero />
-              <h3 className="text-xl text-white font-bold">Latest</h3>
+              <h3 className="md:text-xl text-2xl text-white font-bold">Latest</h3>
               <div className=" flex flex-col gap-8">
                 {isLoading && <LoadingIcon />}
                 {
                   error && <span className="text-red-500 bg-stone-200 px-2 py-2 rounded-lg self-center"> 😶 {error}</span>
                 }
-                {postData.length > 0 &&
+                {postData && postData.length > 0 &&
                   postData.map((post) => (
                     <div key={post.id} className="flex flex-col gap-12 w-full">
                       <BlogCard blogData={post} />
@@ -64,7 +49,7 @@ const Home = () => {
               </div>
             </>
             :
-            <Tags tags={tags} />
+            tags && <Tags tags={tags} />
         }
       </section>
     </SelectionProvider.Provider>
